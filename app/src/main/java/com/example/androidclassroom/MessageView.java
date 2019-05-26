@@ -2,14 +2,10 @@ package com.example.androidclassroom;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.Pair;
-import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,8 +23,6 @@ import java.util.TimeZone;
 import helpers.MqttHelper;
 import model.Message;
 
-import helpers.MqttHelper;
-
 public class MessageView extends AppCompatActivity {
     MqttHelper mqttHelper;
     List<String> listFiltre = new ArrayList<>();
@@ -41,6 +35,11 @@ public class MessageView extends AppCompatActivity {
         setContentView(R.layout.activity_message_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        listFiltre.add("Informations générales");
+        listFiltre.add("Cours");
+        listFiltre.add("Travaux");
+        listFiltre.add("Examens");
+        listFiltre.add("Vie scolaire");
 
         /*
         findViewById(R.id.imageButton1).setOnClickListener(new View.OnClickListener() {
@@ -101,12 +100,11 @@ public class MessageView extends AppCompatActivity {
                 message.date = new Date();
                 SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM YYYY  HH:mm:ss", Locale.FRANCE);
                 formatDate.setTimeZone(TimeZone.getTimeZone("GMT-4"));
+                Log.w("Debug", "topic:" + message.topic + " message:" + message.body);
 
                 for (String abonnement : listFiltre) {
-                    if (abonnement == message.topic) {
+                    if (abonnement.equals(message.topic)) {
                         listMsg.add(message);
-                        Log.w("Debug", "topic:" + message.topic + " message:" + message.body);
-
                         CardView post = new CardView(getBaseContext());
                         TextView text = new TextView(getBaseContext());
                         text.setText(formatDate.format(message.date) + "\n\r" + "Sujet: " + message.topic + "\n\r" + "Message: " + message.body);

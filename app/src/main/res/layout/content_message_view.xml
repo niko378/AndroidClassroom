@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteY="2dp">
 
         <ScrollView
-            android:id="@+id/scrollView2"
+            android:id="@+id/scrolling"
             android:layout_width="381dp"
             android:layout_height="match_parent">
 
