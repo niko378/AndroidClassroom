@@ -3,8 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.androidclassroom.MainActivity">
     <item
-        android:id="@+id/action_login"
+        android:id="@+id/action_folder"
         android:orderInCategory="100"
-        android:title="Login Menu"
+        android:title="Dossier"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_results"
+        android:orderInCategory="100"
+        android:title="Résultats"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_schedule"
+        android:orderInCategory="100"
+        android:title="Horaire"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_calender"
+        android:orderInCategory="100"
+        android:title="Calendrier"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_ressources"
+        android:orderInCategory="100"
+        android:title="Ressources"
         app:showAsAction="never" />
 </menu>

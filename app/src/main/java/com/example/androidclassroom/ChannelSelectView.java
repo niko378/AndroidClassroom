@@ -113,14 +113,6 @@ public class ChannelSelectView extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_login) {
-            System.out.println("changing activity");
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
