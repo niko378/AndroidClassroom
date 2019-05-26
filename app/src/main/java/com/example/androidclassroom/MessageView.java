@@ -2,6 +2,7 @@ package com.example.androidclassroom;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -39,24 +40,35 @@ public class MessageView extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        findViewById(R.id.toggleButton1).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.imageButton1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        findViewById(R.id.toggleButton2).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.imageButton2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
 
-        findViewById(R.id.toggleButton3).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.imageButton3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                findViewById(R.id.menuSide).setLayoutParams(new ConstraintLayout.LayoutParams(120, 682));
+                findViewById(R.id.cardView).setLayoutParams(new ConstraintLayout.LayoutParams(300, 682));
+
+                //((LinearLayout)findViewById(R.id.menuSide)).addView(new TextView(context).setText("hello"));
             }
         });
     }
