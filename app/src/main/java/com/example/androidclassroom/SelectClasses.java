@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -19,6 +20,7 @@ import com.database.sqllite.DbConnector;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 import model.User;
 
@@ -56,7 +58,7 @@ public class SelectClasses extends AppCompatActivity implements ClassListFragmen
                 }
                 User user = new User();
                 Dictionary<String, Object> dict = new Hashtable<>();
-                dict.put("type", context.getIntent().getCharExtra("type", 'O'));
+                dict.put("type", context.getIntent().getStringExtra("type"));
                 dict.put("name", context.getIntent().getStringExtra("name"));
                 dict.put("email", context.getIntent().getStringExtra("email"));
                 dict.put("password", context.getIntent().getStringExtra("password"));
@@ -68,7 +70,11 @@ public class SelectClasses extends AppCompatActivity implements ClassListFragmen
                 DbConnector dbConnector = new DbConnector(getApplicationContext());
                 dbConnector.addElement(user);
 
+                List<Pair<String,String>[]> db = dbConnector.getTable("users");
+
+
                 Intent intent = new Intent(context, MessageView.class);
+                intent.putExtra("email", user.email);
                 startActivity(intent);
                 finish();
 

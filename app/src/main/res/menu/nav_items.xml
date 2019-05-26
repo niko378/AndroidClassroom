@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/imageButton2"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:title="button2"
+        app:srcCompat="@android:color/black" />
+
+    <item
+        android:id="@+id/imageButton3"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:title="button3"
+        app:srcCompat="@android:color/black" />
+
+    <item
+        android:id="@+id/imageButton1"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:title="button1"
+        app:srcCompat="@android:color/black" />
+</menu>
