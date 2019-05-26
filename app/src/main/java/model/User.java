@@ -43,7 +43,7 @@ public class User implements Writable {
     public void loadFromDict(Dictionary<String, Object> dict) {
         email = (String) dict.get("email");
         password = (String) dict.get("password");
-        type = (char) dict.get("type");
+        type = ((String) dict.get("type")).charAt(0);
         fullName = (String) dict.get("name");
         tags = new ArrayList<>();
         for (String tag : ((String) dict.get("tags")).split(";")) {

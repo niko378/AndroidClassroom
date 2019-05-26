@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.List;
 
 public class DbHandler extends SQLiteOpenHelper {
@@ -43,13 +44,10 @@ public class DbHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("CREATE", "TABLES: " + tableNames[0]);
         for (int i = 0; i < tableNames.length; i++) {
             String CREATE_CONTACTS_TABLE = "CREATE TABLE " + tableNames[i] + "(";
-            Log.d("CREATE", "LINE 47: " + CREATE_CONTACTS_TABLE + dbColumns.get(i)[0].first + dbColumns.get(i)[0].second);
-
+            Log.d("LOOP", i + " " + tableNames[i] + " " + dbColumns.get(i)[0].first);
             for (int j = 0; j < dbColumns.get(i).length; j++) {
-                Log.d("CREATE", "LINE 50: " + dbColumns.get(i).length);
                 if (j == 0) {
                     CREATE_CONTACTS_TABLE = CREATE_CONTACTS_TABLE.concat(dbColumns.get(i)[j].first +
                             " " + dbColumns.get(i)[j].second + " PRIMARY KEY, ");
@@ -65,9 +63,7 @@ public class DbHandler extends SQLiteOpenHelper {
                 Log.d("CREATE", "EXCEPTION: " + CREATE_CONTACTS_TABLE);
                 return;
             }
-            Log.d("CREATE", "NO EXCEPTION: " + CREATE_CONTACTS_TABLE);
         }
-            Log.d("CREATE", "END OF CREATE");
     }
 
     @Override
@@ -90,6 +86,21 @@ public class DbHandler extends SQLiteOpenHelper {
             return cursor.getString(0);
         }
         return null;
+    }
+
+    public Dictionary<String,Object> getAllKeysWithSorting(SQLiteDatabase db, String table, String sortingField, String sortingValue) {
+        String[] params = new String[1];
+        params[0] = sortingValue;
+        Cursor cursor = db.rawQuery("SELECT * FROM " + table + " " +
+                "WHERE " + sortingField + " = ?", params);
+        Dictionary<String, Object> dict = null;
+        if (cursor.moveToNext()) {
+            dict = new Hashtable<>();
+            for (int i = 0; i < cursor.getColumnCount(); i++) {
+                dict.put(cursor.getColumnName(i), cursor.getString(i));
+            }
+        }
+        return dict;
     }
 
     public void setStringValue(SQLiteDatabase db, String table, String key, String value, String sortingField, String sortingValue) {

@@ -28,10 +28,11 @@ public class DbConnector {
             columns[3] = new Pair<>("classes", "TEXT");
             columns[4] = new Pair<>("type", "CHAR");
             columns[5] = new Pair<>("password", "TEXT");
+            tableColumns.add(columns);
             Pair<String, String>[] messageTable = new Pair[3];
-            columns[0] = new Pair<>("date", "INT");
-            columns[1] = new Pair<>("topic", "TEXT");
-            columns[2] = new Pair<>("message", "TEXT");
+            messageTable[0] = new Pair<>("date", "INT");
+            messageTable[1] = new Pair<>("topic", "TEXT");
+            messageTable[2] = new Pair<>("message", "TEXT");
             tableColumns.add(messageTable);
             DbHandler.setValues("school_app", 6, tables, tableColumns);
             handler = new DbHandler(context);
@@ -63,20 +64,18 @@ public class DbConnector {
         }
     }
 
-    private void addMessage() {
-
-    }
-
-    private void addUser(User user) {
-
-    }
-
     public List<Pair<String, String>[]> getTable(String tableName) {
         return handler.getTable(db, tableName);
     }
 
     public void deleteAllRows(String tableName) {
         handler.deleteAllRows(db, tableName);
+    }
+
+    public User getUserByEmail(String email) {
+        User user = new User();
+        user.loadFromDict(handler.getAllKeysWithSorting(db, "users", "email", email));
+        return user;
     }
 
 
