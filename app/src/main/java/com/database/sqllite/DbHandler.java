@@ -13,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.List;
 
 public class DbHandler extends SQLiteOpenHelper {
@@ -95,13 +97,15 @@ public class DbHandler extends SQLiteOpenHelper {
                 " WHERE " + sortingField + " = '" + sortingValue + "'");
     }
 
-    public void addRow(SQLiteDatabase db, String table, Pair<String, String>[] keyValuePairs) {
+    public void addRow(SQLiteDatabase db, String table, Dictionary<String, Object> keyValuePairs) {
 
         String query = "INSERT INTO " + table + " (";
         String values = "(";
-        for (int i = 0; i < keyValuePairs.length; i++) {
-            query = query.concat(keyValuePairs[i].first + ", ");
-            values = values.concat("'" + keyValuePairs[i].second + "', ");
+        Enumeration<String> keys = keyValuePairs.keys();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            query = query.concat(key + ", ");
+            values = values.concat("'" + keyValuePairs.get(key).toString() + "', ");
         }
         values = values.substring(0, values.length()-2).concat(")");
         query = query.substring(0, query.length()-2).concat(") VALUES ").concat(values);
