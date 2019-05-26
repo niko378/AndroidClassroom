@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ import helpers.MqttHelper;
 
 public class MessageView extends AppCompatActivity {
     MqttHelper mqttHelper;
+    List<String> listFiltre = new ArrayList<>();
     List<Message> listMsg = new ArrayList<>();
 
     @Override
@@ -65,8 +67,8 @@ public class MessageView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                findViewById(R.id.menuSide).setLayoutParams(new ConstraintLayout.LayoutParams(120, 682));
-                findViewById(R.id.cardView).setLayoutParams(new ConstraintLayout.LayoutParams(300, 682));
+                findViewById(R.id.menuSide).setLayoutParams(new FrameLayout.LayoutParams(120, 682));
+                //findViewById(R.id.cardView).setLayoutParams(new FrameLayout.LayoutParams(300, 682));
 
                 //((LinearLayout)findViewById(R.id.menuSide)).addView(new TextView(context).setText("hello"));
             }
@@ -95,23 +97,25 @@ public class MessageView extends AppCompatActivity {
                 SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM YYYY  HH:mm:ss", Locale.FRANCE);
                 formatDate.setTimeZone(TimeZone.getTimeZone("GMT-4"));
 
-                listMsg.add(message);
-                Log.w("Debug", "topic:" + message.topic + " message:" + message.body);
+                for (String abonnement : listFiltre) {
+                    if (abonnement == message.topic) {
+                        listMsg.add(message);
+                        Log.w("Debug", "topic:" + message.topic + " message:" + message.body);
 
-                CardView post = new CardView(getBaseContext());
-                TextView text = new TextView(getBaseContext());
-                text.setText(formatDate.format(message.date) + "\n\r" +"Sujet: " + message.topic + "\n\r" + "Message: " + message.body);
-                post.addView(text);
-                post.setCardBackgroundColor(Color.rgb(220,220,250));
-                post.setPadding(20,200,20,200);
-                post.setContentPadding(20,10,20,10);
-                LinearLayout ll = findViewById(R.id.verticalFeed);
-                ll.addView(post);
+                        CardView post = new CardView(getBaseContext());
+                        TextView text = new TextView(getBaseContext());
+                        text.setText(formatDate.format(message.date) + "\n\r" + "Sujet: " + message.topic + "\n\r" + "Message: " + message.body);
+                        post.addView(text);
+                        post.setCardBackgroundColor(Color.rgb(220, 220, 250));
+                        post.setPadding(20, 200, 20, 200);
+                        post.setContentPadding(20, 10, 20, 10);
+                        LinearLayout ll = findViewById(R.id.verticalFeed);
+                        ll.addView(post);
 
-//                String msg = "message";
-//                for (int i = 0; i < 15; i++){
-//                    mqttHelper.mqttAndroidClient.publish("/test",msg.getBytes(),0,false);
-//                }
+                        break;
+                    }
+                }
+
             }
 
             @Override
@@ -122,3 +126,8 @@ public class MessageView extends AppCompatActivity {
     }
 }
 
+
+//                String msg = "message";
+//                for (int i = 0; i < 15; i++){
+//                    mqttHelper.mqttAndroidClient.publish("/test",msg.getBytes(),0,false);
+//
