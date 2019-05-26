@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
+import android.view.MenuItem;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         startMqtt();
     }
 
-    private void startMqtt(){
+    private void startMqtt() {
         mqttHelper = new MqttHelper(getApplicationContext());
         mqttHelper.setCallback(new MqttCallbackExtended() {
             @Override
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-                Log.w("Debug",mqttMessage.toString());
+                Log.w("Debug", mqttMessage.toString());
                 dataReceived.setText(mqttMessage.toString());
 //                String msg = "message";
 //                for (int i = 0; i < 15; i++){
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
