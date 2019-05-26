@@ -19,7 +19,7 @@ public class MqttHelper {
     final String serverUri = "tcp://postman.cloudmqtt.com:17233";
 
     final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "message/#";
+    final String subscriptionTopic = "#";
 
     final String username = "rawswmwn";
     final String password = "s0rH1Rva7v1G";
@@ -104,7 +104,7 @@ public class MqttHelper {
             });
 
         } catch (MqttException ex) {
-            System.err.println("Exception whilst subscribing");
+            System.err.println("Exceptionst subscribing");
             ex.printStackTrace();
         }
     }
