@@ -13,14 +13,14 @@ public class Message implements Writable{
     public Dictionary<String, Object> getDict() {
         Dictionary<String, Object> attributes = new Hashtable<>();
         attributes.put("topic", topic);
-        attributes.put("body", body);
-        attributes.put("date", date);
+        attributes.put("message", body);
+        attributes.put("date", (int) date.getTime()/1000);
         return attributes;
     }
 
     public void loadFromDict(Dictionary<String, Object> dict) {
         topic = (String) dict.get("topic");
         body = (String) dict.get("body");
-        date = (Date) dict.get("date");
+        date = new Date(((int)dict.get("date"))*1000L);
     }
 }
