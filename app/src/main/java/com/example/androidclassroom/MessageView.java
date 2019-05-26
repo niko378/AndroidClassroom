@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -30,11 +31,6 @@ public class MessageView extends AppCompatActivity {
         setContentView(R.layout.activity_message_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        for (Message msg : listMsg) {
-
-        }
-
     }
 
     private void startMqtt() {
@@ -52,14 +48,19 @@ public class MessageView extends AppCompatActivity {
 
             @Override
             public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-                Message message = new Message;
+                Message message = new Message();
                 message.topic = topic;
                 message.body = mqttMessage.toString();
 
                 listMsg.add(message);
                 Log.w("Debug", "topic:" + message.topic + " message:" + message.body);
 
-                TextView post = new TextView(this);
+                TextView post = new TextView(getBaseContext());
+                post.setText("Sujet: " + message.topic + "\n\r" + "Message: " + message.body);
+                feed.add(post);
+                LinearLayout ll = findViewById(R.id.verticalFeed);
+                ll.addView(post);
+
 
 //                String msg = "message";
 //                for (int i = 0; i < 15; i++){
