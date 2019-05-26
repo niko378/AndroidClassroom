@@ -9,8 +9,6 @@
     tools:context=".MessageView"
     tools:showIn="@layout/activity_message_view">
 
-<<<<<<< HEAD
-=======
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
@@ -25,16 +23,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
->>>>>>> master
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="2dp">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ScrollView
-            android:id="@+id/scrolling"
-            android:layout_width="381dp"
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -45,16 +46,20 @@
 
             </LinearLayout>
         </ScrollView>
-
     </android.support.v7.widget.CardView>
 
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="60dp"
-        android:layout_height="51dp"
-        android:background="#E91E63"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="608dp" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="676dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="419dp" />
 
 </android.support.constraint.ConstraintLayout>

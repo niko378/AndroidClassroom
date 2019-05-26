@@ -6,7 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 public class User implements Writable {
-    public final static String DEFAULT_TAGS = "infos;";
+    public final static String DEFAULT_TAGS = "Informations générales;";
 
     public String email;
     public String password;

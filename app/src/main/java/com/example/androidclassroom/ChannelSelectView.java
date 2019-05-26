@@ -31,7 +31,7 @@ import model.User;
 
 public class ChannelSelectView extends AppCompatActivity {
 
-    private final String ALL_TAGS = "infos;examens;devoirs;";
+    private final String ALL_TAGS = "Informations générales;Examens;Cours;Travaux;Vie scolaire";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,23 +67,25 @@ public class ChannelSelectView extends AppCompatActivity {
         findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                user.tags = new ArrayList<>();
                 for (int i = 0; i < ll.getChildCount(); i++) {
                     if (ll.getChildAt(i).getClass() == CheckBox.class && ((CheckBox) ll.getChildAt(i)).isChecked()) {
-                        user.tags = new ArrayList<>();
+
                         user.tags.add(((CheckBox) ll.getChildAt(i)).getText().toString());
 
-                        Intent intent = new Intent(context, SelectClasses.class);
-                        Dictionary<String, Object> userDict = user.getDict();
-                        Enumeration<String> keys = userDict.keys();
-                        while (keys.hasMoreElements()) {
-                            String key = keys.nextElement();
-                            intent.putExtra(key, userDict.get(key).toString());
-                        }
-                        startActivity(intent);
-                        finish();
-                        return;
+
                     }
                 }
+                Intent intent = new Intent(context, SelectClasses.class);
+                Dictionary<String, Object> userDict = user.getDict();
+                Enumeration<String> keys = userDict.keys();
+                while (keys.hasMoreElements()) {
+                    String key = keys.nextElement();
+                    intent.putExtra(key, userDict.get(key).toString());
+                }
+                startActivity(intent);
+                finish();
+                return;
             }
         });
 
