@@ -35,10 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Button confirm = findViewById(R.id.create_account_btn);
-        final String fullName = ((EditText) findViewById(R.id.name_field)).getText().toString();
-        final String email = ((EditText) findViewById(R.id.email_field)).getText().toString();
-        final String password = ((EditText) findViewById(R.id.psw_field)).getText().toString();
-        //final char userType = findViewById(((RadioGroup) findViewById(R.id.type_group)).getCheckedRadioButtonId()).toString().charAt(0);
 
         final MainActivity activity = this;
         confirm.setOnClickListener(new View.OnClickListener()
@@ -49,20 +45,29 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("changing activity");
 
                 Intent intent = new Intent(activity, ChannelSelectView.class);
-                intent.putExtra("name", fullName);
-                intent.putExtra("email", email);
-                intent.putExtra("password", password);
-                //intent.putExtra("type", userType);
+                intent.putExtra("name", ((EditText) findViewById(R.id.name_field)).getText().toString());
+                intent.putExtra("email", ((EditText) findViewById(R.id.email_field)).getText().toString());
+                intent.putExtra("password", ((EditText) findViewById(R.id.psw_field)).getText().toString());
+
+                RadioGroup group = (RadioGroup) findViewById(R.id.type_group);
+                char type;
+                switch (group.indexOfChild(findViewById(group.getCheckedRadioButtonId())))  {
+                    case 0:
+                        type = 'T';
+                        break;
+                    case 1:
+                        type = 'P';
+                        break;
+                    default:
+                        type = 'S';
+                        break;
+                }
+                intent.putExtra("type", type);
 
                 startActivity(intent);
                 finish();
             }
         });
-
-        //dataReceived = (TextView) findViewById(R.id.dataReceived);
-
-
-        startMqtt();
     }
 
     @Override

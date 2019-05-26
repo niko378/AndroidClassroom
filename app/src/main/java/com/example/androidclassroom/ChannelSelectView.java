@@ -13,6 +13,8 @@ import com.database.sqllite.DbConnector;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.User;
+
 public class ChannelSelectView extends AppCompatActivity {
 
     @Override
@@ -22,10 +24,14 @@ public class ChannelSelectView extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        boolean isTeacher = this.getIntent().getBooleanExtra("isTeacher", false);
-        List<String> choices = this.getIntent().getStringArrayListExtra("choices");
+        User user = new User();
 
-        if (!isTeacher) {
+        user.type = this.getIntent().getCharExtra("type", 'O');
+        user.fullName = this.getIntent().getStringExtra("name");
+        user.email = this.getIntent().getStringExtra("email");
+        user.password = this.getIntent().getStringExtra("password");
+
+        if (user.type != 'T') {
             findViewById(R.id.add_tag).setVisibility(View.INVISIBLE);
         }
 
@@ -37,7 +43,7 @@ public class ChannelSelectView extends AppCompatActivity {
 
         List<String> classes = new ArrayList<>();
         classes.add("305");
-        try {
+        try {/*
             dbConnector.deleteAllRows("users");
             dbConnector.addTeacher("bob.email.com", "bob", choices, classes);
             classes.add("306");
@@ -45,14 +51,15 @@ public class ChannelSelectView extends AppCompatActivity {
             dbConnector.addTags(choices, "bob.email.com");
             List<Pair<String, String>[]> value = dbConnector.getTable("users");
             System.out.println(value);
+            */
         } catch (Exception e) {
             System.out.println(e.toString());
-        }
+        }/*
         for (int i = 0; i < choices.size(); i++) {
             cb = new CheckBox(this);
             cb.setText(choices.get(i));
             ll.addView(cb);
-        }
+        }*/
     }
 
 }
