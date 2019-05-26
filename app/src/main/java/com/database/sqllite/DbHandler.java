@@ -103,6 +103,31 @@ public class DbHandler extends SQLiteOpenHelper {
         return dict;
     }
 
+    public List<Dictionary<String,Object>> getAllKeysWithSortingMultipleRows(SQLiteDatabase db, String table, String sortingField, String sortingValue) {
+        String[] params = new String[1];
+        params[0] = sortingValue;
+        Cursor cursor = db.rawQuery("SELECT * FROM " + table + " " +
+                "WHERE " + sortingField + " = ?", params);
+
+        List<Dictionary<String, Object>> dicts = null;
+        Dictionary<String, Object> dict;
+        while (cursor.moveToNext()) {
+            if (dicts == null) {
+                dicts = new ArrayList<>();
+            }
+            dict = new Hashtable<>();
+            for (int i = 0; i < cursor.getColumnCount(); i++) {
+                if (cursor.getColumnName(i).equals("date")) {
+                    dict.put(cursor.getColumnName(i), cursor.getInt(i));
+                } else {
+                    dict.put(cursor.getColumnName(i), cursor.getString(i));
+                }
+            }
+            dicts.add(dict);
+        }
+        return dicts;
+    }
+
     public void setStringValue(SQLiteDatabase db, String table, String key, String value, String sortingField, String sortingValue) {
         db.execSQL("UPDATE " + table + " SET " + key + " = '" + value + "'" +
                 " WHERE " + sortingField + " = '" + sortingValue + "'");

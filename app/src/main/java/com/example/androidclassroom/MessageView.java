@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -45,7 +46,7 @@ public class MessageView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        db = new DbConnector(this);
+        db = new DbConnector(getApplicationContext());
         startMqtt();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_view);
@@ -58,76 +59,13 @@ public class MessageView extends AppCompatActivity {
         }
 
         User user = db.getUserByEmail(email);
-/*
-        final DrawerLayout dLayout = (DrawerLayout) findViewById(R.id.drawer_layout); // initiate a DrawerLayout
-        NavigationView navView = (NavigationView) findViewById(R.id.navigation);
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                Fragment frag = null; // create a Fragment Object
-                int itemId = menuItem.getItemId(); // get selected menu item's id
-                // check selected menu item's id and replace a Fragment Accordingly
+    }
 
-                // display a toast message with menu item's title
-                Toast.makeText(getApplicationContext(), menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                if (frag != null) {
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    //transaction.replace(R.id., frag); // replace a Fragment with Frame Layout
-                    transaction.commit(); // commit the changes
-                    dLayout.closeDrawers(); // close the all open Drawer Views
-                    return true;
-                }
-                return false;
-            }
-        });*/
-/*
-        findViewById(R.id.imageButton1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        findViewById(R.id.imageButton2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        findViewById(R.id.imageButton3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-*//*
-        findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                DrawerLayout
-                        dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-// initiate a DrawerLayout
-                Boolean
-                        isOpen = dLayout.isDrawerOpen(dLayout);
-
-
-                if (!isOpen) {
-                    Toast.makeText(getApplicationContext(), "open", Toast.LENGTH_SHORT).show();
-                    // initiate a DrawerLayout
-                    dLayout.openDrawer(GravityCompat.START);
-                    // open a Drawer
-                } else {
-                    Toast.makeText(getApplicationContext(), "close", Toast.LENGTH_SHORT).show();
-
-                    dLayout.closeDrawers();
-                }
-                //findViewById(R.id.cardView).setLayoutParams(new ConstraintLayout.LayoutParams(300, 682));
-
-                //((LinearLayout)findViewById(R.id.menuSide)).addView(new TextView(context).setText("hello"));
-            }
-        });*/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_full, menu);
+        return true;
     }
 
     private void startMqtt() {

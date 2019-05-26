@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 
+import model.Message;
 import model.User;
 import model.Writable;
 
@@ -16,7 +17,7 @@ public class DbConnector {
     DbHandler handler;
 
     public DbConnector(Context context) {
-        if (db == null) {
+        if (db == null || handler == null) {
             String[] tables = new String[2];
             tables[0] = "users";
             tables[1] = "messages";
@@ -76,6 +77,20 @@ public class DbConnector {
         User user = new User();
         user.loadFromDict(handler.getAllKeysWithSorting(db, "users", "email", email));
         return user;
+    }
+
+    public List<Message> getMessageByTopic(String topic) {
+        List<Pair<String, String>[]> dbMessages = handler.getTable(db, "messages");
+        List<Message> messages = new ArrayList<>();
+        List<Dictionary<String, Object>> dictMessages = handler.getAllKeysWithSortingMultipleRows(db, "messages", "topic", topic);
+        if (dictMessages != null) {
+            for (Dictionary<String, Object> dict : dictMessages) {
+                Message message = new Message();
+                message.loadFromDict(dict);
+                messages.add(message);
+            }
+        }
+        return messages;
     }
 
 
