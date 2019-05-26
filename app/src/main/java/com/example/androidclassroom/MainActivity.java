@@ -2,22 +2,32 @@ package com.example.androidclassroom;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.support.v7.widget.Toolbar;
+
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import helpers.MqttHelper;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    MqttHelper mqttHelper;
+
+    TextView dataReceived;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -49,7 +59,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //dataReceived = (TextView) findViewById(R.id.dataReceived);
 
+
+        startMqtt();
     }
 
     @Override
@@ -57,6 +70,36 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    private void startMqtt() {
+        mqttHelper = new MqttHelper(getApplicationContext());
+        mqttHelper.setCallback(new MqttCallbackExtended() {
+            @Override
+            public void connectComplete(boolean b, String s) {
+
+            }
+
+            @Override
+            public void connectionLost(Throwable throwable) {
+
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+                Log.w("Debug", mqttMessage.toString());
+                dataReceived.setText(mqttMessage.toString());
+//                String msg = "message";
+//                for (int i = 0; i < 15; i++){
+//                    mqttHelper.mqttAndroidClient.publish("/test",msg.getBytes(),0,false);
+//                }
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+            }
+        });
     }
 
     @Override
