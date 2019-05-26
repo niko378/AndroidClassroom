@@ -42,27 +42,32 @@ public class MessageView extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         findViewById(R.id.imageButton1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        });
+        }); */
 
+        /*
         findViewById(R.id.imageButton2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
+        */
 
+        /*
         findViewById(R.id.imageButton3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-
+        */
+        /*
         findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +77,7 @@ public class MessageView extends AppCompatActivity {
 
                 //((LinearLayout)findViewById(R.id.menuSide)).addView(new TextView(context).setText("hello"));
             }
-        });
+        });*/
     }
 
     private void startMqtt() {
