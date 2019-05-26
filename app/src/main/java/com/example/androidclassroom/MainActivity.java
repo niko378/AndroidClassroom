@@ -1,5 +1,6 @@
 package com.example.androidclassroom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,6 +11,8 @@ import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import helpers.MqttHelper;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     MqttHelper mqttHelper;
@@ -22,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dataReceived = (TextView) findViewById(R.id.dataReceived);
+        //dataReceived = (TextView) findViewById(R.id.dataReceived);
 
         startMqtt();
     }
@@ -55,5 +58,30 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            System.out.println("changing activity");
+            ArrayList<String> choices = new ArrayList<>();
+            choices.add("hello");
+            choices.add("world");
+
+            Intent intent = new Intent(this, ChannelSelectView.class);
+            intent.putExtra("isTeacher", true);
+
+            intent.putExtra("choices", choices);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
