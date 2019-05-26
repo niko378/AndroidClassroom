@@ -17,8 +17,9 @@ public class DbConnector {
 
     public DbConnector(Context context) {
         if (db == null) {
-            String[] tables = new String[1];
+            String[] tables = new String[2];
             tables[0] = "users";
+            tables[1] = "messages";
             List<Pair<String, String>[]> tableColumns = new ArrayList<>();
             Pair<String, String>[] columns = new Pair[6];
             columns[0] = new Pair<>("email", "TEXT");
@@ -27,8 +28,12 @@ public class DbConnector {
             columns[3] = new Pair<>("classes", "TEXT");
             columns[4] = new Pair<>("type", "CHAR");
             columns[5] = new Pair<>("password", "TEXT");
-            tableColumns.add(columns);
-            DbHandler.setValues("school_app", 5, tables, tableColumns);
+            Pair<String, String>[] messageTable = new Pair[3];
+            columns[0] = new Pair<>("date", "INT");
+            columns[1] = new Pair<>("topic", "TEXT");
+            columns[2] = new Pair<>("message", "TEXT");
+            tableColumns.add(messageTable);
+            DbHandler.setValues("school_app", 6, tables, tableColumns);
             handler = new DbHandler(context);
             db = handler.getDb();
         }
