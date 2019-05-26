@@ -47,6 +47,7 @@ public class MessageView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         db = new DbConnector(getApplicationContext());
+
         startMqtt();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_view);
@@ -59,6 +60,9 @@ public class MessageView extends AppCompatActivity {
         }
 
         User user = db.getUserByEmail(email);
+        for (String tag : user.tags) {
+            db.getMessageByTopic(tag);
+        }
     }
 
     @Override
